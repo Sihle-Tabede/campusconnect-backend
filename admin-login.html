@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | CampusConnect</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <h1>CampusConnect – Admin Login</h1>
+  <nav>
+    <a href="index.html">Home</a>
+  </nav>
+</header>
+
+<div class="auth-container">
+  <h2>Admin Access</h2>
+  
+  <div id="message"></div>
+  
+  <form id="adminLoginForm">
+    <div class="form-group">
+      <label for="username">Username:</label>
+      <input type="email" id="username" placeholder="admin@tut4life.ac.za" required>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" id="password" required>
+    </div>
+
+    <button type="submit" class="primary">Admin Login</button>
+  </form>
+</div>
+
+<footer>
+  © 2026 Tshwane University of Technology | Faculty of ICT
+</footer>
+
+<script src="script.js"></script>
+<script>
+document.getElementById('adminLoginForm').addEventListener('submit', async function(event) {
+  event.preventDefault();
+  
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+  
+  if (username === 'SbonisoTabede@tut4life.ac.za' && password === 'Admin@123') {
+    // Set admin user in localStorage
+    const adminUser = {
+      id: 'admin',
+      firstName: 'Sboniso',
+      lastName: 'Tabede',
+      email: 'SbonisoTabede@tut4life.ac.za',
+      userType: 'admin'
+    };
+    
+    setCurrentUser(adminUser);
+    showMessage('Admin login successful! Redirecting...', 'success');
+    
+    setTimeout(() => {
+      window.location.href = 'admin-dashboard.html';
+    }, 1000);
+  } else {
+    showMessage('Invalid admin credentials');
+  }
+});
+</script>
+
+</body>
+</html>

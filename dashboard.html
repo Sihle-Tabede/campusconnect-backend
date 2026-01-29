@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | CampusConnect</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <h1>CampusConnect – TUT ICT</h1>
+  <nav>
+    <span id="userInfo"></span>
+    <button onclick="logout()">Logout</button>
+  </nav>
+</header>
+
+<div class="container">
+  <div id="welcomeSection">
+    <h2>Welcome to CampusConnect</h2>
+    <p id="welcomeMsg"></p>
+  </div>
+
+  <div class="features">
+    <div class="feature-card">
+      <h3>📚 Request Academic Support</h3>
+      <div class="form-group">
+        <label for="supportType">Support Type:</label>
+        <select id="supportType">
+          <option value="">Select support type</option>
+          <option value="Tutoring">Tutoring</option>
+          <option value="Consultation">Consultation</option>
+          <option value="Study Group">Study Group</option>
+          <option value="Assignment Help">Assignment Help</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="supportDetails">Details:</label>
+        <textarea id="supportDetails" placeholder="Describe your request in detail" rows="3"></textarea>
+      </div>
+      <button class="primary" onclick="submitRequest()">Submit Request</button>
+    </div>
+
+    <div class="feature-card">
+      <h3>📋 Your Service Requests</h3>
+      <div id="requests">
+        <p>Loading your requests...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>📢 Campus Announcements</h3>
+    <div id="announcements">
+      <p>Loading announcements...</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>💬 Submit Feedback</h3>
+    <div class="form-group">
+      <label for="feedbackType">Feedback Type:</label>
+      <select id="feedbackType">
+        <option value="Service Quality">Service Quality</option>
+        <option value="Platform Usability">Platform Usability</option>
+        <option value="Staff Performance">Staff Performance</option>
+        <option value="Suggestion">Suggestion</option>
+        <option value="Complaint">Complaint</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="feedback">Your Feedback:</label>
+      <textarea id="feedback" placeholder="Share your feedback to help us improve our services" rows="4"></textarea>
+    </div>
+    <button class="secondary" onclick="submitFeedback()">Submit Feedback</button>
+  </div>
+</div>
+
+<footer>
+  © 2026 Tshwane University of Technology | Faculty of ICT
+</footer>
+
+<script src="script.js"></script>
+<script>
+// Initialize dashboard when page loads
+window.onload = () => {
+  const user = getCurrentUser();
+  if (!user) {
+    window.location.href = 'login.html';
+    return;
+  }
+  
+  document.getElementById('userInfo').textContent = `${user.firstName} ${user.lastName} (${user.userType})`;
+  document.getElementById('welcomeMsg').textContent = `Welcome back, ${user.firstName}! You're logged in as a ${user.userType}.`;
+  
+  loadRequests();
+  loadAnnouncements();
+};
+</script>
+
+</body>
+</html>

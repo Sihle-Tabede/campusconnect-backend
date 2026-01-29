@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | CampusConnect</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <h1>CampusConnect – TUT ICT</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="register.html">Register</a>
+  </nav>
+</header>
+
+<div class="auth-container">
+  <h2>Sign In</h2>
+  
+  <div id="message"></div>
+  
+  <form id="loginForm">
+    <div class="form-group">
+      <label for="userType">Account Type:</label>
+      <select id="userType" required>
+        <option value="">Select account type</option>
+        <option value="student">Student</option>
+        <option value="staff">Staff Member</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="identifier">Student/Staff Number:</label>
+      <input type="text" id="identifier" placeholder="Enter your student or staff number" required>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" id="password" required>
+    </div>
+
+    <button type="submit" class="primary">Sign In</button>
+  </form>
+
+  <div class="auth-links">
+    <p>Don't have an account? <a href="register.html">Create one here</a></p>
+  </div>
+</div>
+
+<footer>
+  © 2026 Tshwane University of Technology | Faculty of ICT
+</footer>
+
+<script src="script.js"></script>
+<script>
+document.getElementById('loginForm').addEventListener('submit', handleLogin);
+</script>
+
+</body>
+</html>

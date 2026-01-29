@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register | CampusConnect</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <h1>CampusConnect – TUT ICT</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="login.html">Login</a>
+  </nav>
+</header>
+
+<div class="auth-container">
+  <h2>Create Account</h2>
+  
+  <div id="message"></div>
+  
+  <form id="registerForm">
+    <div class="form-group">
+      <label for="userType">Account Type:</label>
+      <select id="userType" required>
+        <option value="">Select account type</option>
+        <option value="student">Student</option>
+        <option value="staff">Staff Member</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" required>
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="lastName" required>
+    </div>
+
+    <div class="form-group">
+      <label for="email">TUT Email Address:</label>
+      <input type="email" id="email" placeholder="studentnumber@tut4life.ac.za" required>
+      <small style="color: #666;">Must end with @tut4life.ac.za</small>
+    </div>
+
+    <div class="form-group" id="studentFields" style="display: none;">
+      <label for="studentNumber">Student Number:</label>
+      <input type="text" id="studentNumber" placeholder="e.g., 220123456">
+    </div>
+
+    <div class="form-group" id="staffFields" style="display: none;">
+      <label for="staffNumber">Staff Number:</label>
+      <input type="text" id="staffNumber" placeholder="e.g., ST001234">
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" id="password" required minlength="6">
+    </div>
+
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password:</label>
+      <input type="password" id="confirmPassword" required>
+    </div>
+
+    <button type="submit" class="primary">Create Account</button>
+  </form>
+
+  <div class="auth-links">
+    <p>Already have an account? <a href="login.html">Sign in here</a></p>
+  </div>
+</div>
+
+<footer>
+  © 2026 Tshwane University of Technology | Faculty of ICT
+</footer>
+
+<script src="script.js"></script>
+<script>
+document.getElementById('userType').addEventListener('change', function() {
+  const userType = this.value;
+  const studentFields = document.getElementById('studentFields');
+  const staffFields = document.getElementById('staffFields');
+  
+  if (userType === 'student') {
+    studentFields.style.display = 'block';
+    staffFields.style.display = 'none';
+    document.getElementById('studentNumber').required = true;
+    document.getElementById('staffNumber').required = false;
+  } else if (userType === 'staff') {
+    studentFields.style.display = 'none';
+    staffFields.style.display = 'block';
+    document.getElementById('studentNumber').required = false;
+    document.getElementById('staffNumber').required = true;
+  } else {
+    studentFields.style.display = 'none';
+    staffFields.style.display = 'none';
+    document.getElementById('studentNumber').required = false;
+    document.getElementById('staffNumber').required = false;
+  }
+});
+
+document.getElementById('registerForm').addEventListener('submit', handleRegister);
+</script>
+
+</body>
+</html>

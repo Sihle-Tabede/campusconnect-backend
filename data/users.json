@@ -1,0 +1,35 @@
+[
+  {
+    "id": "1769490884253",
+    "userType": "student",
+    "firstName": "Sinenhlanhla",
+    "lastName": "Masuku",
+    "email": "219093063@tut4life.ac.za",
+    "password": "Lindiwe@123",
+    "studentNumber": "219093063",
+    "staffNumber": null,
+    "createdAt": "2026-01-27T05:14:44.253Z"
+  },
+  {
+    "id": "1769490999626",
+    "userType": "staff",
+    "firstName": "Sinenhlanhla",
+    "lastName": "Masuku",
+    "email": "sinenhlanhlamasuku43@gmail.com",
+    "password": "Admin@123",
+    "studentNumber": null,
+    "staffNumber": "219093064",
+    "createdAt": "2026-01-27T05:16:39.626Z"
+  },
+  {
+    "id": "1769492173509",
+    "userType": "staff",
+    "firstName": "Zandile",
+    "lastName": "Masuku",
+    "email": "219093065@tut4life.ac.za",
+    "password": "Staff@123",
+    "studentNumber": null,
+    "staffNumber": "219093065",
+    "createdAt": "2026-01-27T05:36:13.509Z"
+  }
+]

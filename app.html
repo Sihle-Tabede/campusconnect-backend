@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CampusConnect | TUT</title>
+  <style>
+    :root {
+      --tut-blue: #002f6c;
+      --tut-red: #e31837;
+      --light-bg: #f4f6f9;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--light-bg);
+      color: #333;
+    }
+
+    header {
+      background: var(--tut-blue);
+      color: white;
+      padding: 15px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+
+    nav button {
+      background: var(--tut-red);
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: var(--tut-blue);
+      margin-top: 0;
+    }
+
+    .hidden { display: none; }
+
+    input, select, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 0.95rem;
+    }
+
+    button.primary {
+      background: var(--tut-blue);
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button.primary:hover {
+      background: #001f4a;
+    }
+
+    .card {
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .status {
+      font-weight: bold;
+      color: var(--tut-red);
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      font-size: 0.85rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>CampusConnect – TUT ICT</h1>
+  <nav>
+    <button onclick="logout()">Logout</button>
+  </nav>
+</header>
+
+<div class="container" id="loginSection">
+  <h2>Student Login</h2>
+  <p>Please log in using your TUT student number.</p>
+  <input type="text" id="studentNumber" placeholder="Student Number" />
+  <button class="primary" onclick="login()">Login</button>
+</div>
+
+<div class="container hidden" id="dashboard">
+  <h2>Welcome to CampusConnect</h2>
+  <p id="welcomeMsg"></p>
+
+  <h3>Request Academic Support</h3>
+  <select id="supportType">
+    <option value="">Select support type</option>
+    <option>Tutoring</option>
+    <option>Consultation</option>
+  </select>
+  <textarea id="supportDetails" placeholder="Describe your request"></textarea>
+  <button class="primary" onclick="submitRequest()">Submit Request</button>
+
+  <h3>Your Service Requests</h3>
+  <div id="requests"></div>
+
+  <h3>Campus Announcements</h3>
+  <div class="card">📢 Semester tests start next week.</div>
+  <div class="card">📅 Career Expo – 15 March at Pretoria Campus.</div>
+
+  <h3>Feedback</h3>
+  <textarea id="feedback" placeholder="Share your feedback"></textarea>
+  <button class="primary" onclick="submitFeedback()">Submit Feedback</button>
+</div>
+
+<footer>
+  © 2026 Tshwane University of Technology | Faculty of ICT
+</footer>
+
+<script>
+  let currentUser = null;
+
+  function login() {
+    const studentNumber = document.getElementById('studentNumber').value;
+    if (!studentNumber) {
+      alert('Please enter your student number');
+      return;
+    }
+    currentUser = studentNumber;
+    localStorage.setItem('student', studentNumber);
+    showDashboard();
+  }
+
+  function showDashboard() {
+    document.getElementById('loginSection').classList.add('hidden');
+    document.getElementById('dashboard').classList.remove('hidden');
+    document.getElementById('welcomeMsg').innerText = `Logged in as ${currentUser}`;
+    loadRequests();
+  }
+
+  function logout() {
+    localStorage.removeItem('student');
+    location.reload();
+  }
+
+  function submitRequest() {
+    const type = document.getElementById('supportType').value;
+    const details = document.getElementById('supportDetails').value;
+
+    if (!type || !details) {
+      alert('Please complete all fields');
+      return;
+    }
+
+    const requests = JSON.parse(localStorage.getItem('requests') || '[]');
+    requests.push({ type, details, status: 'Pending' });
+    localStorage.setItem('requests', JSON.stringify(requests));
+
+    document.getElementById('supportDetails').value = '';
+    loadRequests();
+  }
+
+  function loadRequests() {
+    const container = document.getElementById('requests');
+    container.innerHTML = '';
+    const requests = JSON.parse(localStorage.getItem('requests') || '[]');
+
+    if (requests.length === 0) {
+      container.innerHTML = '<p>No requests submitted yet.</p>';
+      return;
+    }
+
+    requests.forEach(r => {
+      const div = document.createElement('div');
+      div.className = 'card';
+      div.innerHTML = `<strong>${r.type}</strong><br>${r.details}<br>Status: <span class="status">${r.status}</span>`;
+      container.appendChild(div);
+    });
+  }
+
+  function submitFeedback() {
+    const feedback = document.getElementById('feedback').value;
+    if (!feedback) {
+      alert('Please enter feedback');
+      return;
+    }
+    alert('Thank you for your feedback!');
+    document.getElementById('feedback').value = '';
+  }
+
+  window.onload = () => {
+    const savedUser = localStorage.getItem('student');
+    if (savedUser) {
+      currentUser = savedUser;
+      showDashboard();
+    }
+  };
+</script>
+
+</body>
+</html>
